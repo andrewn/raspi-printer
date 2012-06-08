@@ -48,13 +48,20 @@ def checkForDownload():
 
     print "Checking for download: " + url
     response = urllib2.urlopen(req)
+
+    content_length = int(response.info()['Content-length'])
+
+    print "Content length: " + str(content_length)
+
     status = str( response.getcode() )
 
     print "Status: " + status
 
-    if status == '200':
+    if status == '200' and content_length > 0:
         print "has response"
         sendToPrinter(response)
+    elif content_length == 0:
+        print "content length was 0"
     else:
         print "got response: " + status
         time.sleep(5)
