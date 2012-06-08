@@ -2,10 +2,16 @@ import serial
 import time
 import urllib
 
+import argparse
+
+parser = argparse.ArgumentParser(description='A free range printer')
+parser.add_argument("--debug", help="output to /dev/null", action="store_true")
+args = parser.parse_args()
+
 RASPI_SERIAL = '/dev/ttyAMA0'
 DEBUG_SERIAL = '/dev/master'
 
-printerDevice = DEBUG_SERIAL
+printerDevice = DEBUG_SERIAL if args.debug else RASPI_SERIAL
 printerId = None
 printer   = None
 
