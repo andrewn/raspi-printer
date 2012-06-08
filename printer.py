@@ -1,6 +1,6 @@
 import serial
 import time
-import urllib
+import urllib2
 
 from optparse import OptionParser
 
@@ -10,6 +10,8 @@ parser.add_option("--debug", help="output to /dev/null", action="store_true")
 
 RASPI_SERIAL = '/dev/ttyAMA0'
 DEBUG_SERIAL = '/dev/master'
+
+printerType = 'A2-raw'
 
 printerDevice = DEBUG_SERIAL if options.debug else RASPI_SERIAL
 printerId = None
@@ -40,8 +42,12 @@ def getPrinterUrl():
 
 def checkForDownload():
     url = getPrinterUrl()
-    print "Check for download: " + url
-    response = urllib.urlopen(url)
+    
+    req = urllib2.Request(url)
+    req.add_header('Accept', 'application/vnd.freerange.printer.' + printerType)
+
+    print "Checking for download: " + url
+    response = urllib2.urlopen(req)
     status = str( response.getcode() )
 
     print "Status: " + status
@@ -54,6 +60,7 @@ def checkForDownload():
         time.sleep(5)
 
 def sendToPrinter(f):
+    print "Printing."
     bytes = f.read()
     for b in bytes:
         printer.write(b)
