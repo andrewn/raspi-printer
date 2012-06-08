@@ -64,8 +64,7 @@ def checkForDownload():
         print "content length was 0"
     else:
         print "got response: " + status
-        time.sleep(5)
-
+    
 def sendToPrinter(f):
     print "Printing."
     bytes = f.read()
@@ -79,5 +78,6 @@ initPrinter()
 print printerId
 print printerDevice
 
-#while(True):
-checkForDownload()
+while(True):
+    checkForDownload()
+    time.sleep(5)
