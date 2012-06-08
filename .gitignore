@@ -12,6 +12,9 @@ test/tmp
 test/version_tmp
 tmp
 
+#
+PRINTER_ID
+
 # YARD artifacts
 .yardoc
 _yardoc

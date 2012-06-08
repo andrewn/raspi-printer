@@ -11,8 +11,13 @@ printer   = None
 
 printerHost = "http://printer.gofreerange.com:80"
 
+def readFileContents(filepath):
+    with open(filepath,'r') as f:
+        output = f.read()
+    return output
+
 def getPrinterId():
-    return "1234abc"
+    return readFileContents('PRINTER_ID')
 
 def initSettings():
     print "init settings"
@@ -47,6 +52,7 @@ def sendToPrinter(f):
     for b in bytes:
         printer.write(b)
     printer.flush()
+
 
 initSettings()
 initPrinter()
