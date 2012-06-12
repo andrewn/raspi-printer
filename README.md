@@ -36,15 +36,15 @@ Without connecting the Pi to the printer, log into the Pi (I'm using the Debian 
 The Pi will be sending all the console logging output to the serial interface but we need to change the baud to match the printer's.
 
 Backup the file we're about to change:
- $ sudo cp /boot/cmdline.txt /boot/cmdline.txt.backup
+    $ sudo cp /boot/cmdline.txt /boot/cmdline.txt.backup
 
 Open the file in a text editor:
- $ sudo nano /boot/cmdline.txt
+    $ sudo nano /boot/cmdline.txt
 
 
 In this file, change the number 115200 to 19200 e.g.
 
- dwc_otg.lpm_enable=0 console=ttyAMA0,19200 kgdboc=ttyAMA0,19200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 rootwait
+    dwc_otg.lpm_enable=0 console=ttyAMA0,19200 kgdboc=ttyAMA0,19200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 rootwait
 
 Power off the Pi again.
 
@@ -58,14 +58,14 @@ Success!
 
 On the Raspberry Pi you need to install the python-serial library so we can communicate with the printer via the serial interface.
 
-$ sudo apt-get install python-serial
+    $ sudo apt-get install python-serial
 
-Create a file called PRINTER_ID. It should contain the printer's unique ID and nothing else.
+Create a file called `PRINTER_ID`. It should contain the printer's unique ID and nothing else.
 
 Next, you can run the printer.py app:
 
-$ cd /path/to/raspi-printer/
-$ sudo python printer.py
+    $ cd /path/to/raspi-printer/
+    $ sudo python printer.py
 
 The software will poll every 10 secs looking for something to print.
 
