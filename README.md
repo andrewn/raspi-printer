@@ -10,15 +10,15 @@ You will need:
 
 1. Plug the printer's power connector (the one with 2 red/black wires) and the data connector (3 black/yellow/green wires) into the breadboard.
 
-(https://raw.github.com/andrewn/raspi-printer/master/docs/1.jpg)
+![](https://raw.github.com/andrewn/raspi-printer/master/docs/1.jpg)
 
 2. Attach a jumper to connect the 2 grounds
 
-(https://raw.github.com/andrewn/raspi-printer/master/docs/2.jpg)
+![](https://raw.github.com/andrewn/raspi-printer/master/docs/2.jpg)
 
 3. Connect the printer's power supply adapter using some more jumper cables. The black end should be in line with the black cable already on the board. The red end with the red cabnle coming from the printer connector.
 
-(https://raw.github.com/andrewn/raspi-printer/master/docs/3.jpg)
+![](https://raw.github.com/andrewn/raspi-printer/master/docs/3.jpg)
 
 
 *NB: This next step is the one that could destroy your raspberry pi if you don't connect up the correct wires.*
@@ -27,7 +27,7 @@ You will need:
 
 You're connecting the transmit pin of the Raspberry Pi's serial interface with the Recieve wire of the printer.
 
-(https://raw.github.com/andrewn/raspi-printer/master/docs/4.jpg)
+![](https://raw.github.com/andrewn/raspi-printer/master/docs/4.jpg)
 
 ## Test the Pi's output to the printer
 
