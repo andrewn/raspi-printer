@@ -6,7 +6,7 @@ This is the way I hooked up my Raspberry Pi to get the printer working. I'm no e
 ## Connecting up the printer to the Raspberry Pi
 
 You will need:
- - 2 jumper (http://bit.ly/LiTwTm or http://bit.ly/L0KD5u)
+ - 2 jumpers that sit over the Raspberry Pi's serial pins (http://bit.ly/LiTwTm or http://bit.ly/L0KD5u)
 
 1. Plug the printer's power connector (the one with 2 red/black wires) and the data connector (3 black/yellow/green wires) into the breadboard.
 
