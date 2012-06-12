@@ -13,6 +13,8 @@ DEBUG_SERIAL = '/dev/master'
 
 printerType = 'A2-raw'
 
+pollingTimeoutSecs = 10
+
 printerDevice = DEBUG_SERIAL if options.debug else RASPI_SERIAL
 printerId = None
 printer   = None
@@ -80,4 +82,4 @@ print printerDevice
 
 while(True):
     checkForDownload()
-    time.sleep(5)
+    time.sleep(pollingTimeoutSecs)
