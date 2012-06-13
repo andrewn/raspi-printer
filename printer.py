@@ -1,7 +1,9 @@
 import serial
 import time
 import urllib2
-import uuid
+
+import random
+import string
 
 from optparse import OptionParser
 
@@ -32,7 +34,10 @@ def writeFileContents(filepath, contents):
         f.write(contents)
 
 def createPrinterId():
-    return uuid.uuid4().hex
+    # Create a unique, 16 char string composed of a-z0-9
+    # See: http://stackoverflow.com/a/621658
+    return "".join([random.choice(string.ascii_lowercase + string.digits)
+                    for i in xrange(16)])
 
 def getPrinterId():
     idFromFile = None
