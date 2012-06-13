@@ -1,6 +1,7 @@
 import serial
 import time
 import urllib2
+import uuid
 
 from optparse import OptionParser
 
@@ -26,14 +27,34 @@ def readFileContents(filepath):
         output = f.read()
     return output
 
+def writeFileContents(filepath, contents):
+    with open(filepath,'w') as f:
+        f.write(contents)
+
+def createPrinterId():
+    return uuid.uuid4().hex
+
 def getPrinterId():
-    return readFileContents('PRINTER_ID')
+    idFromFile = None
+    try:
+        idFromFile = readFileContents('PRINTER_ID')
+    except IOError:
+        pass
+    return idFromFile
+
+def storePrinterId(pid):
+    writeFileContents('PRINTER_ID', pid)
 
 def initSettings():
     print "init settings"
 
     global printerId
     printerId = getPrinterId()
+
+    if not printerId:
+        printerId = createPrinterId()
+        storePrinterId(printerId)
+        print "Created new printer id: " + printerId
 
 def initPrinter():
     global printer
