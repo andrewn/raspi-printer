@@ -5,6 +5,8 @@ import urllib2
 import random
 import string
 
+import logging
+
 from optparse import OptionParser
 
 parser = OptionParser(description='A free range printer')
@@ -52,7 +54,7 @@ def storePrinterId(pid):
     writeFileContents('/home/pi/raspi-printer/PRINTER_ID', pid)
 
 def initSettings():
-    print "init settings"
+    logging.warning("init settings")
 
     global printerId
     printerId = getPrinterId()
@@ -60,7 +62,7 @@ def initSettings():
     if not printerId:
         printerId = createPrinterId()
         storePrinterId(printerId)
-        print "Created new printer id: " + printerId
+        logging.warning("Created new printer id: " + printerId)
 
 def initPrinter():
     global printer
@@ -75,27 +77,27 @@ def checkForDownload():
     req = urllib2.Request(url)
     req.add_header('Accept', 'application/vnd.freerange.printer.' + printerType)
 
-    print "Checking for download: " + url
+    logging.warning("Checking for download: " + url)
     response = urllib2.urlopen(req)
 
     content_length = int(response.info()['Content-length'])
 
-    print "Content length: " + str(content_length)
+    logging.warning("Content length: " + str(content_length))
 
     status = str( response.getcode() )
 
-    print "Status: " + status
+    logging.warning("Status: " + status)
 
     if status == '200' and content_length > 0:
-        print "has response"
+        logging.warning("has response")
         sendToPrinter(response)
     elif content_length == 0:
-        print "content length was 0"
+        logging.warning("content length was 0")
     else:
-        print "got response: " + status
+        logging.warning("got response: " + status)
 
 def sendToPrinter(f):
-    print "Printing."
+    logging.warning("Printing.")
     bytes = f.read()
     for b in bytes:
         printer.write(b)
@@ -104,8 +106,8 @@ def sendToPrinter(f):
 
 initSettings()
 initPrinter()
-print printerId
-print printerDevice
+logging.warning(printerId_
+logging.warning(printerDevice)
 
 while(True):
     checkForDownload()
