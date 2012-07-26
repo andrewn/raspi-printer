@@ -9,7 +9,7 @@ import string
 import logging
 
 logger = logging.getLogger(__name__)
-logger.basicConfig(filename='printer.log')
+logging.basicConfig(filename='printer.log')
 
 from optparse import OptionParser
 
