@@ -7,7 +7,7 @@ import string
 
 import logging
 
-logger = logger.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 from optparse import OptionParser
 
@@ -108,7 +108,7 @@ def sendToPrinter(f):
 
 initSettings()
 initPrinter()
-logger.warning(printerId_
+logger.warning(printerId)
 logger.warning(printerDevice)
 
 while(True):
