@@ -49,7 +49,7 @@ def getPrinterId():
     return idFromFile
 
 def storePrinterId(pid):
-    writeFileContents('PRINTER_ID', pid)
+    writeFileContents('/home/pi/raspi-printer/PRINTER_ID', pid)
 
 def initSettings():
     print "init settings"
