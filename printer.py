@@ -42,7 +42,8 @@ def createPrinterId():
 def getPrinterId():
     idFromFile = None
     try:
-        idFromFile = readFileContents('PRINTER_ID')
+        # :todo: Make this a config option
+        idFromFile = readFileContents('/home/pi/raspi-printer/PRINTER_ID')
     except IOError:
         pass
     return idFromFile
@@ -70,7 +71,7 @@ def getPrinterUrl():
 
 def checkForDownload():
     url = getPrinterUrl()
-    
+
     req = urllib2.Request(url)
     req.add_header('Accept', 'application/vnd.freerange.printer.' + printerType)
 
@@ -92,7 +93,7 @@ def checkForDownload():
         print "content length was 0"
     else:
         print "got response: " + status
-    
+
 def sendToPrinter(f):
     print "Printing."
     bytes = f.read()
