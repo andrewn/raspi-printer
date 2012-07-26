@@ -7,6 +7,8 @@ import string
 
 import logging
 
+logger = logger.getLogger(__name__)
+
 from optparse import OptionParser
 
 parser = OptionParser(description='A free range printer')
@@ -54,7 +56,7 @@ def storePrinterId(pid):
     writeFileContents('/home/pi/raspi-printer/PRINTER_ID', pid)
 
 def initSettings():
-    logging.warning("init settings")
+    logger.warning("init settings")
 
     global printerId
     printerId = getPrinterId()
@@ -62,7 +64,7 @@ def initSettings():
     if not printerId:
         printerId = createPrinterId()
         storePrinterId(printerId)
-        logging.warning("Created new printer id: " + printerId)
+        logger.warning("Created new printer id: " + printerId)
 
 def initPrinter():
     global printer
@@ -77,27 +79,27 @@ def checkForDownload():
     req = urllib2.Request(url)
     req.add_header('Accept', 'application/vnd.freerange.printer.' + printerType)
 
-    logging.warning("Checking for download: " + url)
+    logger.warning("Checking for download: " + url)
     response = urllib2.urlopen(req)
 
     content_length = int(response.info()['Content-length'])
 
-    logging.warning("Content length: " + str(content_length))
+    logger.warning("Content length: " + str(content_length))
 
     status = str( response.getcode() )
 
-    logging.warning("Status: " + status)
+    logger.warning("Status: " + status)
 
     if status == '200' and content_length > 0:
-        logging.warning("has response")
+        logger.warning("has response")
         sendToPrinter(response)
     elif content_length == 0:
-        logging.warning("content length was 0")
+        logger.warning("content length was 0")
     else:
-        logging.warning("got response: " + status)
+        logger.warning("got response: " + status)
 
 def sendToPrinter(f):
-    logging.warning("Printing.")
+    logger.warning("Printing.")
     bytes = f.read()
     for b in bytes:
         printer.write(b)
@@ -106,8 +108,8 @@ def sendToPrinter(f):
 
 initSettings()
 initPrinter()
-logging.warning(printerId_
-logging.warning(printerDevice)
+logger.warning(printerId_
+logger.warning(printerDevice)
 
 while(True):
     checkForDownload()
