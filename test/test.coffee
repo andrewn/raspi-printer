@@ -2,7 +2,7 @@ assert = require("chai").assert
 sinon  = require("sinon")
 nock   = require("nock")
 
-URL = require("url")
+URL  = require("url")
 
 print = require("../lib/print-server.js")
 
@@ -49,11 +49,12 @@ describe "PrintServer", ->
       this.clock.tick(1)
 
     it "should HTTP GET server", ->
-      server = nock('http://fake.com').get('/abc123').reply(200)
+      server = nock('http://fake.com')
+                .get('/abc123')
+                .reply(200)
       this.ps.poll()
       server.done()
 
-  describe "checking for documents", ->
     it "should identify itself", ->
       server = nock('http://fake.com')
                 .get('/abc123')
@@ -63,3 +64,40 @@ describe "PrintServer", ->
       ps = new print.PrintServer('http://fake.com/abc123', 'A2-raw')
       ps.poll()
       server.done()
+
+  describe "on response", (done) ->
+    beforeEach ->
+      this.ps = new print.PrintServer('http://fake.com/abc123', 'printer-type')
+
+    afterEach ->
+      this.ps = null
+
+    it "should emit requestFailed on non-200 response", (done) ->
+      server = nock('http://fake.com')
+                .get('/abc123')
+                .reply(500, "An error", { "Content-Length" : 1024 })
+
+      documentReceivedCallback = () ->
+        #assert.equal(doc, "The document body", "document should be part of event")
+        done()
+
+      this.ps.on("requestFailed", documentReceivedCallback)
+      this.ps.poll()
+
+    it "should use content length to detect document", () ->
+      assert.isFalse(this.ps.responseHasDocument({ headers: {"content-length": 0} }))
+      assert.isTrue(this.ps.responseHasDocument({ headers: {"content-length": 1023} }))
+
+    it "should emit a documentReceived event", (done) ->
+      server = nock('http://fake.com')
+                .get('/abc123')
+                .reply(200, "The document body", { "Content-Length" : 1024 })
+
+      documentReceivedCallback = (doc) ->
+        assert.equal(doc, "The document body", "document should be part of event")
+        done()
+
+      this.ps.on("documentReceived", documentReceivedCallback)
+      this.ps.poll()
+
+    it "errors shouldn't stop polling"
