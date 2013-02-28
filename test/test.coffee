@@ -31,10 +31,12 @@ describe "PrintServer", ->
     it "should have a default poll interval", ->
       assert.equal(this.ps.pollingIntervalInSecs, 10)
 
-    it "should start polling", ->
+    it "should be start/stoppable polling", ->
       assert.isFalse this.ps.isPolling()
       this.ps.startPolling()
       assert.isTrue  this.ps.isPolling()
+      this.ps.stopPolling()
+      assert.isFalse this.ps.isPolling()
 
     it "should poll according to interval", (done) ->
       server = nock('http://fake.com').get('/abc123').reply(200)
