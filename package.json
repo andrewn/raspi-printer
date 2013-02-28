@@ -1,0 +1,27 @@
+{
+  "name": "raspi-printer",
+  "version": "0.0.0",
+  "description": "raspi-printer =============",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "~1.8.1",
+    "chai" : "~1.5.0",
+    "sinon": "~1.6.0",
+    "nock" : "~0.16.0"
+  },
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrewn/raspi-printer.git"
+  },
+  "author": "",
+  "license": "",
+  "readmeFilename": "README.md"
+}
