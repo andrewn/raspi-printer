@@ -91,3 +91,23 @@ Enable the service to be started at boot:
 
     $ sudo update-rc.d -f raspi-printer defaults
 
+Periodically try and start the service to ensure if it crashes. The init.d script above ensures only 1 instance is every running:
+
+    $ sudo crontab -e
+
+Add the following line:
+
+    * * * * * /usr/sbin/service raspi-printer start
+
+I updated the firmware like this as there was a repeated kernel panic:
+
+    $ sudo raspi-update
+
+
+Troubleshooting
+---
+
+I switched from a Dynamode wifi adatper to an Edimax. To get it working, I removed the following file, which seems to store some config about previous adapters:
+
+    $ sudo mv /etc/udev/rules.d/70-persistent-net.rules /etc/udev/rules.d/70-persistent-net.rules.backup
+
