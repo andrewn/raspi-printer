@@ -48,6 +48,23 @@ describe "PrintServer", ->
       assert.isFalse(hasPolledFired, "event should not have fired")
       this.clock.tick(1)
 
+    it "shouldn't stop polling on error", (done) ->
+      self = this
+
+      server = nock('http://fake.com')
+                .get('/abc123').reply(500, "The document body")
+                .get('/abc123').reply(500, "The document body")
+
+      pollFiredCounter = 1
+
+      self.ps.on('polled', () -> 
+        done() if pollFiredCounter == 2
+        pollFiredCounter++
+        self.ps.poll()
+      )
+
+      self.ps.poll()
+
     it "should HTTP GET server", ->
       server = nock('http://fake.com')
                 .get('/abc123')
@@ -100,4 +117,4 @@ describe "PrintServer", ->
       this.ps.on("documentReceived", documentReceivedCallback)
       this.ps.poll()
 
-    it "errors shouldn't stop polling"
+
