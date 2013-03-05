@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "gpio-tests": "git://github.com/andrewn/gpio-tests.git",
-    "serialport": "~1.0.8",
+    "serialport": "1.0.6",
     "q": "~0.8.12"
   },
   "devDependencies": {
