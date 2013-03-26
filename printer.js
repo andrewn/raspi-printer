@@ -11,6 +11,8 @@ config = {
   server : 'http://printer.gofreerange.com:80/printer/' + PrinterId.get()
 }
 
+console.log("Printer URL: ", config.server);
+
 controller = new PrinterController({
                     printServer: new PrintServer(config.server, config.type), 
                     printQueue: new PrintQueue(),
