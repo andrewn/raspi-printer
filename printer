@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 PrintQueue  = require("./lib/print-queue").PrintQueue
 PrintServer = require("./lib/print-server.js").PrintServer
 PrinterId   = require("./lib/printer-id.js").PrinterId
