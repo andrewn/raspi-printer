@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+
+var things = require('./lib/things');
+var led = new things.LED(7);
+
+function flashOnce() {
+  console.log('Should flash LED once...');
+  led.ready()
+     .then( function () { led.flash(); });
+}
+
+function flashingContinously() {
+  console.log('Should flash LED continously...');
+  led.startFlashing();
+}
+
+function stopFlashingContinously() {
+  console.log('Should stop flashing...');
+  led.stopFlashing();
+}
+
+flashOnce();
+
+things.wait(5000)
+      .then(flashingContinously);
+
+things.wait(5000)
+      .then(stopFlashingContinously);
