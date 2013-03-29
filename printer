@@ -2,6 +2,7 @@
 
 logger      = require('winston');
 logger.add(logger.transports.File, { filename: '/var/log/raspi-printer.log', json:false });
+logger.setLevels(logger.config.syslog.levels);
 
 PrintQueue  = require("./lib/print-queue").PrintQueue
 PrintServer = require("./lib/print-server.js").PrintServer
@@ -13,6 +14,19 @@ PrinterController = require("./lib/printer-controller.js").PrinterController
 
 PrinterId.logger = logger;
 Printer
+
+/*
+  Returns a function that will log a message 
+  including the signal and then exit
+*/
+function createShutdownHandlerForSignal(sig) {
+  return function () {
+    logger.info("Shutting down (" + sig + ")");
+    process.exit();
+  }
+};
+
+process.on('SIGINT', createShutdownHandlerForSignal('SIGINT'));
 
 config = {
   type   : 'A2-raw',
