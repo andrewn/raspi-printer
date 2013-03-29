@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+logger      = require('winston');
+logger.add(logger.transports.File, { filename: '/var/log/raspi-printer.log', json:false });
+logger.setLevels(logger.config.syslog.levels);
+
 PrintQueue  = require("./lib/print-queue").PrintQueue
 PrintServer = require("./lib/print-server.js").PrintServer
 PrinterId   = require("./lib/printer-id.js").PrinterId
@@ -8,16 +12,33 @@ Ui          = require("./lib/ui").Ui
 
 PrinterController = require("./lib/printer-controller.js").PrinterController
 
+PrinterId.logger = logger;
+Printer
+
+/*
+  Returns a function that will log a message 
+  including the signal and then exit
+*/
+function createShutdownHandlerForSignal(sig) {
+  return function () {
+    logger.info("Shutting down (" + sig + ")");
+    process.exit();
+  }
+};
+
+process.on('SIGINT', createShutdownHandlerForSignal('SIGINT'));
+
 config = {
   type   : 'A2-raw',
   server : 'http://printer.gofreerange.com:80/printer/' + PrinterId.get()
 }
 
-console.log("Printer URL: ", config.server);
+logger.info("Printer URL: ", config.server);
 
 controller = new PrinterController({
-                    printServer: new PrintServer(config.server, config.type), 
-                    printQueue: new PrintQueue(),
-                    ui: new Ui(),
-                    printer: new Printer('/dev/ttyAMA0')
+                    printServer: new PrintServer(config.server, config.type, { logger: logger }), 
+                    printQueue: new PrintQueue({ logger: logger }),
+                    ui: new Ui({ logger: logger }),
+                    printer: new Printer('/dev/ttyAMA0', { logger: logger }),
+                    logger: logger
                   })

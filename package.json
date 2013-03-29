@@ -9,7 +9,8 @@
   "dependencies": {
     "gpio-tests": "git://github.com/andrewn/gpio-tests.git",
     "serialport": "1.0.6",
-    "q": "~0.8.12"
+    "q": "~0.8.12",
+    "winston": "~0.6.2"
   },
   "devDependencies": {
     "mocha": "~1.8.1",
