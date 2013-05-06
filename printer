@@ -4,6 +4,8 @@ logger      = require('winston');
 logger.add(logger.transports.File, { filename: '/var/log/raspi-printer.log', json:false });
 logger.setLevels(logger.config.syslog.levels);
 
+logger.info("Starting...")
+
 PrintQueue  = require("./lib/print-queue").PrintQueue
 PrintServer = require("./lib/print-server.js").PrintServer
 PrinterId   = require("./lib/printer-id.js").PrinterId
@@ -13,7 +15,11 @@ Ui          = require("./lib/ui").Ui
 PrinterController = require("./lib/printer-controller.js").PrinterController
 
 PrinterId.logger = logger;
-Printer
+
+process.on('uncaughtException', function (exception) {
+   logger.error('uncaught exception', exception);
+});
+
 
 /*
   Returns a function that will log a message 
