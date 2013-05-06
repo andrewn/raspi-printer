@@ -18,19 +18,20 @@ describe "Printer", ->
     beforeEach ->
       this.printer = new Printer('/dev/usb.serial-1')
       this.printer.serial = sinon.spy()
-      this.printer.serial.on = sinon.stub()
+      this.printer.serial.on = sinon.spy()
       this.printer.serial.write = sinon.spy()
 
     it "should wait until port is open", ->
+      assert.isFalse this.printer.isOpen, "is not open"
       this.printer.setup()
-      assert.isTrue this.printer.serial.on.calledWith('open')
+      assert.isTrue this.printer.serial.on.calledWith('open'), "open handler not called"
 
     it "should return a promise", ->
       assert.isFunction this.printer.setup().then
 
   describe "#print", ->
     it "should return a promise", ->
-      assert.isFunction this.printer.print().then
+      assert.isFunction this.printer.print("A document").then
 
   # describe "#writeSerial", ->
   #   it "should send document down the serial port", () ->
