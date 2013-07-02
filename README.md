@@ -70,7 +70,7 @@ Next, you can run the printer.py app:
 The software will poll every 10 secs looking for something to print.
 
 ## TODO
-[ ] create a unique ID if it doesn't find one
+- [ ] create a unique ID if it doesn't find one
 - do some basic validation of response
 - don't crash if we encounter an error
 - send a header containing software version number?
