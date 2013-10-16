@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+var things = require('./lib/things');
+button = new things.Button(3);
+button.ready()
+      .then(
+        function () {
+          button.on(
+            'released',
+            function () {
+              console.log('button is released');
+            }
+          );
+        }
+      );
