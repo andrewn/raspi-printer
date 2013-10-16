@@ -6,13 +6,13 @@ logger.setLevels(logger.config.syslog.levels);
 
 logger.info("Starting...")
 
-PrintQueue  = require("./lib/print-queue").PrintQueue
-PrintServer = require("./lib/print-server.js").PrintServer
-PrinterId   = require("./lib/printer-id.js").PrinterId
-Printer     = require("./lib/printer.js").Printer
-Ui          = require("./lib/ui").Ui
+PrintQueue  = require("../lib/print-queue").PrintQueue
+PrintServer = require("../lib/print-server.js").PrintServer
+PrinterId   = require("../lib/printer-id.js").PrinterId
+Printer     = require("../lib/printer.js").Printer
+Ui          = require("../lib/ui").Ui
 
-PrinterController = require("./lib/printer-controller.js").PrinterController
+PrinterController = require("../lib/printer-controller.js").PrinterController
 
 PrinterId.logger = logger;
 
@@ -22,7 +22,7 @@ process.on('uncaughtException', function (exception) {
 
 
 /*
-  Returns a function that will log a message 
+  Returns a function that will log a message
   including the signal and then exit
 */
 function createShutdownHandlerForSignal(sig) {
@@ -42,7 +42,7 @@ config = {
 logger.info("Printer URL: ", config.server);
 
 controller = new PrinterController({
-                    printServer: new PrintServer(config.server, config.type, { logger: logger }), 
+                    printServer: new PrintServer(config.server, config.type, { logger: logger }),
                     printQueue: new PrintQueue({ logger: logger }),
                     ui: new Ui({ logger: logger }),
                     printer: new Printer('/dev/ttyAMA0', { logger: logger }),
