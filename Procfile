@@ -1,1 +1,1 @@
-owl: ./printer
+owl: ./bin/printer
