@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var things = require('./lib/things');
+var things = require('../lib/things');
 button = new things.Button(3);
 button.ready()
       .then(
