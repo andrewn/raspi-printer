@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "dependencies": {
-    "pi-gpio": "0.0.2",
+    "pi-gpio": "https://github.com/andrewn/pi-gpio.git",
     "serialport": "https://github.com/voodootikigod/node-serialport/tarball/master",
     "q": "~0.8.12",
     "winston": "~0.6.2"
