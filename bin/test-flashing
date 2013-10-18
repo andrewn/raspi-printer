@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var things = require('./lib/things');
+var things = require('../lib/things');
 var led = new things.LED(7);
 
 function flashOnce() {
