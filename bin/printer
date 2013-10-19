@@ -35,6 +35,7 @@ function createShutdownHandlerForSignal(sig) {
 process.on('SIGINT', createShutdownHandlerForSignal('SIGINT'));
 
 config = {
+  pollingInternvalInSecs: 5,
   type   : 'A2-raw',
   server : 'http://printer.gofreerange.com:80/printer/' + PrinterId.get()
 }
