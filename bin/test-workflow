@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+PrinterId = require("../lib/printer-id.js").PrinterId;
+
+var body = "content=<h1>This is a test print</h1>";
+
+var request = new http.ClientRequest({
+    hostname: "printer.gofreerange.com",
+    port: 80,
+    path: "/print/" + PrinterId.get(),
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "Content-Length": body.length // Often this part is optional
+    }
+});
+
+request.end(body);
